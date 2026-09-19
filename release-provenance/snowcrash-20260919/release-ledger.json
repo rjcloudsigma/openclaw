@@ -1,0 +1,133 @@
+{
+  "status": "accepted-corrected-r2-history-1m-staged-only",
+  "deployment": {
+    "candidateArchiveSHA256": "20344b53eff59b3ac764976d510d4cd9e94515676f2d130458717f4424cd4922",
+    "acceptedRuntime": "openclaw-small-list-r2-resumed-20260919-20344b53eff5",
+    "acceptancePID": 1312678,
+    "laterRebootPIDObservedAtHistoryStaging": 1530,
+    "pidIsHistoricalObservationNotCurrentClaim": true,
+    "managedPeers": 10,
+    "unrelatedPeersPreserved": 26
+  },
+  "acceptance": {
+    "stores": 414,
+    "exactKeysCanonicalRowsSessionIds": 2519,
+    "originalHistoryPrefixes": 15454,
+    "sqliteQuickCheck": "ok",
+    "listPayloadComparisons": 10,
+    "historyPayloadComparisons": 6,
+    "memoryAliasNames": 8,
+    "pluginsLoaded": 11,
+    "pluginDiagnostics": 0,
+    "settledReadiness": true,
+    "retentionCorrection": "Only succeeded/ended tasks with explicit expired cleanup_after may disappear naturally; no missing rows restored. Initial 20-ID exception proved too narrow when 10 further terminal tasks expired. Follow-up adapter derivative was not covered by original independent controller review.",
+    "liveSamplesMs": {
+      "small10MedianBefore": 2335,
+      "small10MedianAfter": 457,
+      "sixSmallBurstBefore": 14000,
+      "sixSmallBurstAfter": 2337,
+      "list500Before": 842,
+      "list500After": 972,
+      "sixHistoryBefore": 1911,
+      "sixHistoryAfter": 1938,
+      "coldSmall10After": 2308
+    },
+    "latencyScope": "bounded samples, not repeated p95 or universal improvement"
+  },
+  "variants": {
+    "baseline": {
+      "archive": "gateway-baseline-fixed.tar.gz",
+      "archiveSHA256": "d9acdd61fc7fa4d922ca1d01feb2c9cd7d4f01ee706435ccdc14fce9376eed44",
+      "originalRuntimeManifestSHA256": "e2f5f7cdd6f2a4af285e5908aab01a69df05df4c95bfdc7048605f90dddfd756",
+      "originalDerivativeManifestSHA256": "3c667ced7c7ef042db919c5614005a2db64ec399a8ec788d97cf4902d8abc2ea",
+      "immutableDeployedRoot": null,
+      "executingIdentity": null,
+      "status": "rejected",
+      "deployable": false,
+      "safeFallback": false,
+      "reviewDate": "2026-09-19"
+    },
+    "candidate": {
+      "archive": "gateway-candidate-fixed.tar.gz",
+      "archiveSHA256": "51b9f532b303dc318519cd96ed2a9676723dcefe850f41006c27361ebd532c25",
+      "originalRuntimeManifestSHA256": "27f82e3d505baed4082c2083eb1f33d70bae011f99497ac07685c4cab7c6e0f0",
+      "originalDerivativeManifestSHA256": "57800b330725b48ba8ce3c68dc2432550f20a8f6286eea5007f2e2dce75cab48",
+      "immutableDeployedRoot": null,
+      "executingIdentity": null,
+      "status": "rejected",
+      "deployable": false,
+      "safeFallback": false,
+      "reviewDate": "2026-09-19"
+    }
+  },
+  "previousStatus": "isolated-qualified-not-live-accepted",
+  "reviewDisposition": {
+    "date": "2026-09-19",
+    "verdict": "NO-GO",
+    "supersedesPublicationCommit": "66841fc94fab8555e530bed5480601165e89a644",
+    "reason": "Actual emitted invalid-owner whitespace-only keys collapse to empty string before guard; synthetic collision merges and discards one row in both packages.",
+    "liveLossEstablished": false,
+    "deploymentOccurred": false,
+    "historicalEvidence": "Successful bounded tests and exact patches/manifests retained; blank-only collision coverage was missing."
+  },
+  "normalizationR2": {
+    "status": "independently-qualified-candidate-live-accepted",
+    "baseline": {
+      "sourceChanges": {
+        "src/infra/state-migrations.orphan-keys.test.ts": "52f05832150d4327d286f2d51534747fa022d3c4c081bee058e164f665096670",
+        "src/infra/state-migrations.ts": "767460f2a94ec909f6f778a80dbe366142017cd2f5801c6dd7e25f80b9b10b84"
+      },
+      "sourceFiles": 22120,
+      "sourceLinks": 23,
+      "runtimeEntries": 36898,
+      "productionPackages": 323,
+      "dependencyFilesVerified": 26063,
+      "archiveSHA256": "8913b18eebe0556587de8d48636a00362c45b2f82c942b448e8a8a237f664b34",
+      "runtimeManifestSHA256": "e599fb9cae9c2530b37cad20da14ee1e45853f908f2d04a21b2fc9f714fb41af",
+      "sourceManifestSHA256": "bda599908c611021b0fceb8c28126194146760861e24a08d661cbe35f860cbd3",
+      "patchSHA256": "4593b98d1675b63e418c561953f78c0e81e87541b1bb7e99770ae2980f9a39eb"
+    },
+    "candidate": {
+      "sourceChanges": {
+        "src/infra/state-migrations.orphan-keys.test.ts": "52f05832150d4327d286f2d51534747fa022d3c4c081bee058e164f665096670",
+        "src/infra/state-migrations.ts": "767460f2a94ec909f6f778a80dbe366142017cd2f5801c6dd7e25f80b9b10b84"
+      },
+      "sourceFiles": 22120,
+      "sourceLinks": 23,
+      "runtimeEntries": 36898,
+      "productionPackages": 323,
+      "dependencyFilesVerified": 26063,
+      "archiveSHA256": "20344b53eff59b3ac764976d510d4cd9e94515676f2d130458717f4424cd4922",
+      "runtimeManifestSHA256": "b3982e3b84bf90973877bfa30d92f66e85c4175056366326e25e701c3c0f3cd8",
+      "sourceManifestSHA256": "5f49899a3fba4ce531ead75b0a85b8d6ad18fb65ce4124e9cd8b62a4d548877c",
+      "patchSHA256": "4593b98d1675b63e418c561953f78c0e81e87541b1bb7e99770ae2980f9a39eb"
+    },
+    "publication": "patch 0005 replaces patch 0004, not an additive layer after it",
+    "fallback": "new corrected baseline qualified; never restore database or historical keys"
+  },
+  "initialTransitionFailureProtocol": {
+    "beforeStoppedBoundary": "Abort leaving still-running old service alone.",
+    "afterStoppedBoundary": "Start only newly corrected independently reviewed and qualified code with matching verified peers; never old unpatched code or either rejected package.",
+    "correctedBaselineUnavailable": "Remain stopped and report; preserve current/newer state; no whole-state restore or key rewriting."
+  },
+  "historicalVariantsNote": "variants and reviewDisposition retain the rejected historical package identities; they are not current approval.",
+  "historyCap": {
+    "status": "staged-for-next-start-only",
+    "derivative": "openclaw-history-cap-1m-next-start-20260919",
+    "sourceBuilt": false,
+    "activationPending": true,
+    "executingRuntimeAtStaging": "accepted corrected R2, PID 1530, old 500000 cap",
+    "configuredNextStart": "emitted derivative, 1000000 cap",
+    "module": "dist/schema-BuOFpc7K.js",
+    "afterSourceSHA256": "34e906137c77dde6971e13d527170185f5ddd005901e2e6158fe67ce10f6c301",
+    "stagingReceiptOriginalSHA256": "a77ae5402fd176d7620f8883c4e49fc215cf278f2d1b42a4304b8dd85a585843",
+    "dropinBeforeSHA256": "ed89796b5ef258879e91afa5ae1d5fde55ca888d042cf6f22a8d1d74ab9897e9",
+    "dropinAfterSHA256": "df80a84b4aa565008edb85d4bafc71fb862dc8b9bd8419488bdf62d65b795729",
+    "activationActionPerformed": "manager daemon-reload only, no Gateway lifecycle or peer changes",
+    "rollback": "Inspect for intervening edits, restore/merge previous existing next-start root selection and daemon-reload only; activation requires separate authorization. No DB/key restoration.",
+    "immutability": "write bits removed, regular files nlink=1 and distinct inodes from accepted tree; owner could chmod, not root/chattr immutability",
+    "sourceBeforeSHA256": "b74b24a6bef031e01333c5addfa9a677ddde6463d2fb0482ce7e2dff25491698",
+    "emittedBeforeSHA256": "b5b672dd1ce3579e2b030567ef192355374c052934cb4e252b793e08647d54ab",
+    "emittedAfterSHA256": "67f9915c2ec0c976dd8522dfbc3ac306f4360e8f511b97660832da62a93b9365"
+  }
+}

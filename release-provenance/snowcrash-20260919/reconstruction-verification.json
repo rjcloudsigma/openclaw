@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "latency-r2": {
+      "files": 22120,
+      "links": 23,
+      "fullContentAndMembershipMatch": true
+    },
+    "baseline-fixed": {
+      "files": 22120,
+      "links": 23,
+      "fullContentAndMembershipMatch": true
+    },
+    "candidate-fixed": {
+      "files": 22120,
+      "links": 23,
+      "fullContentAndMembershipMatch": true
+    },
+    "small-list": {
+      "files": 22120,
+      "links": 23,
+      "fullContentAndMembershipMatch": true
+    }
+  },
+  "baseObjectAvailableLocally": true,
+  "baseObjectOnForkOrUpstreamGitHub": false,
+  "dependencyLocks": {
+    "package.json": "0005244d0c40e00c6fbc1e2809e78f4d138d22633d6e5eabbe971cb70d2be04e",
+    "pnpm-lock.yaml": "245ba5208623c9158d893e76b0207912f8ad26d86de161c87df593c690512548",
+    "pnpm-workspace.yaml": "04ae0b635ba9376d61c837506ed28d1f3dd075263387a78a2f43861a083c1adf"
+  },
+  "dependencyInstallationReproduced": false,
+  "runtimeBuildRepeated": false
+}

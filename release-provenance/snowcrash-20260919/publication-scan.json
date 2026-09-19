@@ -1,0 +1,16 @@
+{
+  "filesScanned": 20,
+  "patterns": [
+    "private-key",
+    "github-token",
+    "provider-token",
+    "aws-key",
+    "private-host-path",
+    "slack-token"
+  ],
+  "findings": [],
+  "scope": "All publication file contents; targeted pattern and filename review, not universal secret detection",
+  "excluded": "No raw operational reports, config, credentials, sessions, database, environment, dependency payloads or archives",
+  "syntheticPaths": "Patch /tmp paths are synthetic test fixtures",
+  "allJSONParsed": true
+}

@@ -1,0 +1,11 @@
+--- a/dist/schema-BuOFpc7K.js
++++ b/dist/schema-BuOFpc7K.js
+@@ -3240,7 +3240,7 @@
+ 	offset: Type.Optional(Type.Integer({ minimum: 0 })),
+ 	maxChars: Type.Optional(Type.Integer({
+ 		minimum: 1,
+-		maximum: 5e5
++		maximum: 1e6
+ 	}))
+ }, { additionalProperties: false });
+ /** Lightweight chat metadata request; optional agent scope keeps selector state explicit. */

@@ -1,0 +1,149 @@
+--- a/src/gateway/session-utils.ts
++++ b/src/gateway/session-utils.ts
+@@ -689,6 +689,7 @@
+   key: string;
+   now: number;
+   candidates: ReadonlyMap<string, readonly string[]>;
++  subagentRuns?: SessionListRowContext["subagentRuns"];
+ }): string[] | undefined {
+   const childSessionKeys: string[] = [];
+   for (const childKey of params.candidates.get(params.key) ?? []) {
+@@ -696,7 +697,9 @@
+     if (!entry) {
+       continue;
+     }
+-    const latest = getSessionDisplaySubagentRunByChildSessionKey(childKey);
++    const latest = params.subagentRuns
++      ? params.subagentRuns.getDisplaySubagentRun(childKey)
++      : getSessionDisplaySubagentRunByChildSessionKey(childKey);
+     if (latest) {
+       const latestControllerSessionKey =
+         normalizeOptionalString(latest.controllerSessionKey) ||
+@@ -706,7 +709,9 @@
+       }
+       if (
+         !shouldKeepSubagentRunChildLink(latest, {
+-          activeDescendants: countActiveDescendantRuns(childKey),
++          activeDescendants: params.subagentRuns
++            ? params.subagentRuns.countActiveDescendantRuns(childKey)
++            : countActiveDescendantRuns(childKey),
+           now: params.now,
+         })
+       ) {
+@@ -760,11 +765,13 @@
+   storePath: string;
+   key: string;
+   now: number;
++  subagentRuns?: SessionListRowContext["subagentRuns"];
+ }): Map<string, string[]> {
+   const storeChildSessions = resolveStoreChildSessionKeysFromCandidates({
+     store: params.store,
+     key: params.key,
+     now: params.now,
++    subagentRuns: params.subagentRuns,
+     candidates: getSingleRowChildSessionCandidates({
+       storePath: params.storePath,
+       store: params.store,
+@@ -2685,11 +2692,14 @@
+   childSessionCandidates?: Record<string, SessionEntry>;
+ }): GatewaySessionRow {
+   const now = params.now ?? Date.now();
++  // One synchronous response-time snapshot preserves latest completion/ownership state.
++  const subagentRuns = buildSubagentRunReadIndex(now, { childKeyMatching: "exact" });
+   const storeChildSessionsByKey = buildSingleRowStoreChildSessionsByKey({
+     storePath: params.storePath,
+     store: params.childSessionCandidates ?? params.store,
+     key: params.key,
+     now,
++    subagentRuns,
+   });
+   return buildGatewaySessionRow({
+     cfg: params.cfg,
+@@ -2701,6 +2711,7 @@
+     modelCatalog: params.modelCatalog,
+     now,
+     storeChildSessionsByKey,
++    rowContext: buildSessionListRowContextFromParts({ subagentRuns, storeChildSessionsByKey }),
+     skipTranscriptUsageFallback: true,
+     lightweightListRow: true,
+   });
+--- a/src/agents/subagent-registry-read.ts
++++ b/src/agents/subagent-registry-read.ts
+@@ -24,10 +24,14 @@
+ } from "./subagent-session-metrics.js";
+ 
+ /** Builds a reusable read index from the current persisted and in-memory run state. */
+-export function buildSubagentRunReadIndex(now = Date.now()): SubagentRunReadIndex {
++export function buildSubagentRunReadIndex(
++  now = Date.now(),
++  options?: { childKeyMatching?: "trimmed" | "exact" },
++): SubagentRunReadIndex {
+   return buildSubagentRunReadIndexFromRuns({
+     runs: getSubagentRunsSnapshotForRead(subagentRuns),
+     inMemoryRuns: subagentRuns.values(),
++    childKeyMatching: options?.childKeyMatching,
+     now,
+   });
+ }
+--- a/src/agents/subagent-registry-queries.ts
++++ b/src/agents/subagent-registry-queries.ts
+@@ -98,9 +98,12 @@
+ export function buildSubagentRunReadIndexFromRuns(params: {
+   runs: Map<string, SubagentRunRecord>;
+   inMemoryRuns?: Iterable<SubagentRunRecord>;
++  /** Exact stored-key semantics for single accessors; lists retain trimmed matching. */
++  childKeyMatching?: "trimmed" | "exact";
+   now?: number;
+ }): SubagentRunReadIndex {
+   const { runs } = params;
++  const exactChildKeys = params.childKeyMatching === "exact";
+   const now = params.now ?? Date.now();
+   const inMemoryDisplayByChildSessionKey = new Map<
+     string,
+@@ -117,7 +120,7 @@
+   const activeDescendantCountBySessionKey = new Map<string, number>();
+ 
+   for (const entry of params.inMemoryRuns ?? []) {
+-    const childSessionKey = entry.childSessionKey.trim();
++    const childSessionKey = exactChildKeys ? entry.childSessionKey : entry.childSessionKey.trim();
+     if (!childSessionKey) {
+       continue;
+     }
+@@ -126,7 +129,7 @@
+       display = { latestInMemoryActive: null, latestInMemoryEnded: null };
+       inMemoryDisplayByChildSessionKey.set(childSessionKey, display);
+     }
+-    if (hasSubagentRunEnded(entry)) {
++    if (exactChildKeys ? typeof entry.endedAt === "number" : hasSubagentRunEnded(entry)) {
+       if (
+         !display.latestInMemoryEnded ||
+         compareSubagentRunGeneration(entry, display.latestInMemoryEnded) > 0
+@@ -144,7 +147,7 @@
+   }
+ 
+   for (const [runId, entry] of runs.entries()) {
+-    const childSessionKey = entry.childSessionKey.trim();
++    const childSessionKey = exactChildKeys ? entry.childSessionKey : entry.childSessionKey.trim();
+     const controllerSessionKey = resolveControllerSessionKey(entry);
+     if (controllerSessionKey) {
+       let controllerRuns = runsByControllerSessionKey.get(controllerSessionKey);
+@@ -173,7 +176,8 @@
+       latestByChild = new Map<string, LatestRunPair>();
+       latestRunByRequesterAndChildSessionKey.set(requesterSessionKey, latestByChild);
+     }
+-    rememberLatestRunPair(latestByChild, childSessionKey, runId, entry);
++    // Legacy traversal groups trimmed children, but its global latest lookup is exact.
++    rememberLatestRunPair(latestByChild, entry.childSessionKey.trim(), runId, entry);
+   }
+ 
+   const getDisplaySubagentRun = (childSessionKey: string): SubagentRunRecord | null => {
+@@ -227,7 +231,8 @@
+         // Only traverse the latest run per child; older retries should not keep descendants alive.
+         if (
+           !latestForChildSession ||
+-          latestForChildSession.runId !== pair.runId ||
++          (exactChildKeys ? latestForChildSession.entry.runId : latestForChildSession.runId) !==
++            pair.runId ||
+           latestForChildSession.entry.requesterSessionKey !== requester
+         ) {
+           continue;

@@ -1,0 +1,226 @@
+{
+  "baseline": {
+    "sourceChanges": {
+      "src/infra/state-migrations.orphan-keys.test.ts": "52f05832150d4327d286f2d51534747fa022d3c4c081bee058e164f665096670",
+      "src/infra/state-migrations.ts": "767460f2a94ec909f6f778a80dbe366142017cd2f5801c6dd7e25f80b9b10b84"
+    },
+    "sourceFiles": 22120,
+    "sourceLinks": 23,
+    "runtimeEntries": 36898,
+    "productionPackages": 323,
+    "dependencyFilesVerified": 26063,
+    "archiveSHA256": "8913b18eebe0556587de8d48636a00362c45b2f82c942b448e8a8a237f664b34",
+    "runtimeManifestSHA256": "e599fb9cae9c2530b37cad20da14ee1e45853f908f2d04a21b2fc9f714fb41af",
+    "sourceManifestSHA256": "bda599908c611021b0fceb8c28126194146760861e24a08d661cbe35f860cbd3",
+    "patchSHA256": "4593b98d1675b63e418c561953f78c0e81e87541b1bb7e99770ae2980f9a39eb"
+  },
+  "candidate": {
+    "sourceChanges": {
+      "src/infra/state-migrations.orphan-keys.test.ts": "52f05832150d4327d286f2d51534747fa022d3c4c081bee058e164f665096670",
+      "src/infra/state-migrations.ts": "767460f2a94ec909f6f778a80dbe366142017cd2f5801c6dd7e25f80b9b10b84"
+    },
+    "sourceFiles": 22120,
+    "sourceLinks": 23,
+    "runtimeEntries": 36898,
+    "productionPackages": 323,
+    "dependencyFilesVerified": 26063,
+    "archiveSHA256": "20344b53eff59b3ac764976d510d4cd9e94515676f2d130458717f4424cd4922",
+    "runtimeManifestSHA256": "b3982e3b84bf90973877bfa30d92f66e85c4175056366326e25e701c3c0f3cd8",
+    "sourceManifestSHA256": "5f49899a3fba4ce531ead75b0a85b8d6ad18fb65ce4124e9cd8b62a4d548877c",
+    "patchSHA256": "4593b98d1675b63e418c561953f78c0e81e87541b1bb7e99770ae2980f9a39eb"
+  },
+  "legacyInputsAndArchivesStillIntact": true,
+  "pluginInputManifestsVerified": [
+    "cloudsigma",
+    "openclaw-studio-prd-tools",
+    "openclaw-supermemory",
+    "slack",
+    "acpx",
+    "deepseek",
+    "groq",
+    "zai"
+  ],
+  "gates": [
+    {
+      "variant": "baseline",
+      "gate": "regressions",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T08:44:25.119308339Z",
+      "finishedAt": "2026-09-19T08:44:51.371898755Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "baseline",
+      "gate": "roundtrip",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:47:27.648952757Z",
+      "finishedAt": "2026-09-19T09:47:40.676806436Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "baseline",
+      "gate": "semantic",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:02:46.617882919Z",
+      "finishedAt": "2026-09-19T09:15:28.765529332Z",
+      "memoryGiB": 16,
+      "cpus": 2
+    },
+    {
+      "variant": "baseline",
+      "gate": "build",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:15:29.142531406Z",
+      "finishedAt": "2026-09-19T09:23:08.373681871Z",
+      "memoryGiB": 16,
+      "cpus": 2
+    },
+    {
+      "variant": "baseline",
+      "gate": "recovery-plugins",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:50:51.288142235Z",
+      "finishedAt": "2026-09-19T09:50:59.59074257Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "candidate",
+      "gate": "regressions",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T08:44:51.635252706Z",
+      "finishedAt": "2026-09-19T08:45:22.418025766Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "candidate",
+      "gate": "roundtrip",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:47:40.99558104Z",
+      "finishedAt": "2026-09-19T09:47:53.837591792Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "candidate",
+      "gate": "semantic",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:23:08.702539719Z",
+      "finishedAt": "2026-09-19T09:36:12.135737337Z",
+      "memoryGiB": 16,
+      "cpus": 2
+    },
+    {
+      "variant": "candidate",
+      "gate": "build",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:36:12.46111107Z",
+      "finishedAt": "2026-09-19T09:45:24.275005565Z",
+      "memoryGiB": 16,
+      "cpus": 2
+    },
+    {
+      "variant": "candidate",
+      "gate": "recovery-plugins",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:50:59.843149498Z",
+      "finishedAt": "2026-09-19T09:51:08.038374632Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "baseline-bench",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:48:35.688563033Z",
+      "finishedAt": "2026-09-19T09:49:47.302128088Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "candidate-bench",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:49:47.580110235Z",
+      "finishedAt": "2026-09-19T09:50:22.34772477Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "baseline-rpc",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:50:22.633203353Z",
+      "finishedAt": "2026-09-19T09:50:36.752742621Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "candidate-rpc",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:50:36.995736927Z",
+      "finishedAt": "2026-09-19T09:50:50.938991347Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "baseline-migration",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:47:54.122004435Z",
+      "finishedAt": "2026-09-19T09:48:04.427620855Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "candidate-migration",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:48:04.669073923Z",
+      "finishedAt": "2026-09-19T09:48:14.799722341Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "failed-candidate",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:48:15.051777919Z",
+      "finishedAt": "2026-09-19T09:48:24.957647555Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    },
+    {
+      "variant": "snowcrash-normalization-fixed-r2-20260919",
+      "gate": "fixed-rollback",
+      "exit": 0,
+      "oomKilled": false,
+      "startedAt": "2026-09-19T09:48:25.204150555Z",
+      "finishedAt": "2026-09-19T09:48:35.385087714Z",
+      "memoryGiB": 6,
+      "cpus": 2
+    }
+  ],
+  "remainingTaskContainers": 0
+}

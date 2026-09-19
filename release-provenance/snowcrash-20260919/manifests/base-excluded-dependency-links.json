@@ -1,0 +1,11 @@
+{
+  "packages/acp-core/node_modules/@openclaw/normalization-core": "../../../normalization-core",
+  "packages/agent-core/node_modules/@openclaw/ai": "../../../ai",
+  "packages/gateway-client/node_modules/@openclaw/gateway-protocol": "../../../gateway-protocol",
+  "packages/media-core/node_modules/@openclaw/normalization-core": "../../../normalization-core",
+  "packages/sdk/node_modules/@openclaw/gateway-client": "../../../gateway-client",
+  "packages/speech-core/node_modules/.bin/openclaw": "../openclaw/openclaw.mjs",
+  "packages/speech-core/node_modules/openclaw": "../../..",
+  "ui/node_modules/@openclaw/media-core": "../../../packages/media-core",
+  "ui/node_modules/@openclaw/normalization-core": "../../../packages/normalization-core"
+}

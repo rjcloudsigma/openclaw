@@ -1,0 +1,11 @@
+--- a/packages/gateway-protocol/src/schema/logs-chat.ts
++++ b/packages/gateway-protocol/src/schema/logs-chat.ts
+@@ -33,7 +33,7 @@
+     agentId: Type.Optional(NonEmptyString),
+     limit: Type.Optional(Type.Integer({ minimum: 1, maximum: 1000 })),
+     offset: Type.Optional(Type.Integer({ minimum: 0 })),
+-    maxChars: Type.Optional(Type.Integer({ minimum: 1, maximum: 500_000 })),
++    maxChars: Type.Optional(Type.Integer({ minimum: 1, maximum: 1_000_000 })),
+   },
+   { additionalProperties: false },
+ );

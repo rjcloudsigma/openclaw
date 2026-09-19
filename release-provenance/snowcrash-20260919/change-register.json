@@ -1,0 +1,181 @@
+{
+  "baseToInherited": [
+    {
+      "file": "scripts/lib/tsdown-staging.d.mts",
+      "before": null,
+      "after": "d5d70ecde0d3d86ea767d0a66f7b94aedf197326131ffc6af57472ac7eb3398e"
+    },
+    {
+      "file": "scripts/lib/tsdown-staging.mjs",
+      "before": null,
+      "after": "dfb7421488ed80183bc5ce83ce81648b37f757d536e06efe6a48c18d260afe2b"
+    },
+    {
+      "file": "scripts/tsdown-build.mjs",
+      "before": "ef6b7d9004734f69e9c324b4fed560cf0bd97e3110b50b4e6185af644b200c6b",
+      "after": "fc3671b92705896c5cc3785a6fdd23d1797daca0f9e389b029be6af98ac8683c"
+    },
+    {
+      "file": "src/agents/db-owner-review.test.ts",
+      "before": null,
+      "after": "0f6bd636ee475c2f08d5b996a4d3771f04595e82907cf0eab6c453555a5ed511"
+    },
+    {
+      "file": "src/agents/subagent-registry-state.test.ts",
+      "before": "11aa5b72d070cfd0a547ba1384af339f7eed0f2515cb01ddab6ce39b0a49a19a",
+      "after": "f5a8684d848902b1afb8b5ccaf4e7eaa06e835b33840f77f5a67eaf6e153e3dd"
+    },
+    {
+      "file": "src/agents/subagent-registry-state.ts",
+      "before": "7d0ffa29edb53fa08299dad3710de189fed3a751308e88d9c66e2e9eecc6482e",
+      "after": "a664884a32bf0653c0bb246710b8f70a77cf420e6e989ec42eb88b1c25e185a5"
+    },
+    {
+      "file": "src/agents/subagent-registry.store.sqlite.test.ts",
+      "before": "3c6c6fbdf882924337b34c6a0c96468f8eca0d253e508ab749cd4001dab5e75b",
+      "after": "f3238175ad6023bb6d8323b6fc61e73c046bc9df983412797ccd2b9838511e69"
+    },
+    {
+      "file": "src/agents/subagent-registry.store.sqlite.ts",
+      "before": "0f9444924ece6d684e5630682e0b455af6dd137d82a0c50f8cb4bac39a370ab3",
+      "after": "fa5bd28f5776676f87647c99117fcdc0cb53b02699b2738df2f190b381401685"
+    },
+    {
+      "file": "src/config/sessions/session-accessor.ts",
+      "before": "c6a9cdffef98f528e4e1a0f117b258ef5dd408028889e25ce35926d99c5dc8ec",
+      "after": "174ccac6ae01e63a13f789b89e3e56324728a3a5946229b33d2cfa7857674b1a"
+    },
+    {
+      "file": "src/gateway/server-methods/chat.detached-r2.test.ts",
+      "before": null,
+      "after": "b9e4542834d54857015d208c5fa0bd9faa51e656509e39db60089dab2279563c"
+    },
+    {
+      "file": "src/gateway/server-methods/chat.ts",
+      "before": "fc917d37687c9f819731479206a5954f07e5b1fbdf3ecc759c2d920b35e28f04",
+      "after": "7b1c69e3b4e698d8a0c53ae6a7721e69d7cd05ee288d56fdaf3c9f22fa458029"
+    },
+    {
+      "file": "src/gateway/session-utils.detached-resolvers-r2.test.ts",
+      "before": null,
+      "after": "28a3308cc47e01d93420c1fe8537a389bd082a4c90ef2d662cd5c865ae33819d"
+    },
+    {
+      "file": "src/gateway/session-utils.plugin-runtime.test.ts",
+      "before": "541b95e6d4ada490f2a6c6a96e81ce253d13f372db3a394750ff6a03cfa0f27d",
+      "after": "a1b7139ec8d760563f53b717d132ce5b567596634980b0c063f64ff74020709a"
+    },
+    {
+      "file": "src/gateway/session-utils.single-row-cache.test.ts",
+      "before": "bd92259644ab55860631e4a5eeae19309e17489bf7f5442b909e43bddc5b9b22",
+      "after": "8a587559f15445990d691c925e14c382b8cc4ca8fa29f3b52d51b9bc9a6442f7"
+    },
+    {
+      "file": "src/gateway/session-utils.ts",
+      "before": "d6395af6c6bea3aec109b5886dd2b4f5d4ad6cee9a1c0121dbf71427cdbd9e45",
+      "after": "8ce242d0bbd1fbf02edfd22ea9ebe7ecffe8d4648753eb55e0d2a3d494561126"
+    },
+    {
+      "file": "src/plugins/providers.test.ts",
+      "before": "f5b58dbc790054162a999968c266652d3cf3579d5410084bdd7d673b36c98aff",
+      "after": "82a3e44c66342a1f265d2dd81618d300f8a46d277d117a631b9d5075e7d58b6f"
+    },
+    {
+      "file": "src/secrets/config-io.ts",
+      "before": "46107674732b0e36714a54395f0d91229316339e1258f6f808cdb5781f1c5ff0",
+      "after": "98c318858156d0a5be1ba2dfac9a11cb6107b6e2d074dcfecc2552a906db9dbf"
+    },
+    {
+      "file": "src/state/openclaw-state-db.ts",
+      "before": "1258233ccdb4d80e8559c47416547fead89e050fdb6fb04af3eb9ce4ba27f0c1",
+      "after": "b968db0fb8542117ab4d83dc53528614acda4db4091f9839381bf9da6ac55f40"
+    },
+    {
+      "file": "test/scripts/tsdown-ai-staging.test.ts",
+      "before": null,
+      "after": "1463fb0a0f54ac753134e9c0defd0c5be4350e61dfaa314e1fce28752cc355fa"
+    },
+    {
+      "file": "test/scripts/tsdown-staging.test.ts",
+      "before": null,
+      "after": "c3844c4b0a1392a11203a14a8be3e78ff7422c7a40d2286e0eac129edd6f8a8d"
+    },
+    {
+      "file": "tsdown.ai.config.ts",
+      "before": "3d03f3255b7f532314eccc63aaf5d16f295f79151008ac33da8dcaa990aa9fdd",
+      "after": "c9ca7dae220d995cacbc6acf0d250a50297290fe55942a7d5eecda90fea26853"
+    },
+    {
+      "file": "tsdown.config.ts",
+      "before": "0e9255c770cfe28c214210266c41ffa7eac65d7df4e773a0f8dcb0e08651c94e",
+      "after": "74e132b844fc028fceaeff408f6cc33757a908f3e08dd6c23993be0f41131d8b"
+    },
+    {
+      "file": "vitest.performance-prep.config.ts",
+      "before": null,
+      "after": "2a0fa8a59cd30d592e8f7d7b4eedb2bc15a8b1ea9eb759d77c932ab847b2cd1c"
+    }
+  ],
+  "latencyR2": {
+    "parentManifest": "9a63c4115ca0984fbeadbf6472e9e0f8454850818150f9faa1cdef2f9419d0b4",
+    "patch": "ab6893bf909c2a81a64967757991f47688b3b84a6f4b2500e38e934bdbb63d97",
+    "changed": {
+      "src/agents/subagent-registry-queries.ts": "2d5e23a6e2e937fd13da9a565fc0795d4cc9b516f80496a4dd1750cba8859523",
+      "src/agents/subagent-registry-read.ts": "1c92c173f1d8c8f537de7b14f18056d9f8d0bcdd08f287cdbdbba06c852e722c",
+      "src/gateway/session-utils.ts": "75a2bbf7ed36df4c8acf759aa4c86937e25170d4a300900e85033a82d5603430"
+    }
+  },
+  "sourceManifestOriginalSHA256": {
+    "latency-r2": "f304e623026ea32407e0febae500435470edd56140f4fb7d1a7fdfcb3378bcad",
+    "small-list": "2da5ac3217bed0b9611dabbaa001e2f035f0bdc30d928e9a910cff366e1f0c5f",
+    "baseline-fixed": "3c667ced7c7ef042db919c5614005a2db64ec399a8ec788d97cf4902d8abc2ea",
+    "candidate-fixed": "57800b330725b48ba8ce3c68dc2432550f20a8f6286eea5007f2e2dce75cab48"
+  },
+  "patchSHA256": {
+    "0001-inherited-derivative-and-build-support.patch": "434aaf55ada2999c01314f8ecdd26b8782e6c323d4a5ece7102feefe56a33667",
+    "0002-reviewed-latency-r2.patch": "ab6893bf909c2a81a64967757991f47688b3b84a6f4b2500e38e934bdbb63d97",
+    "0003-reviewed-small-list.patch": "13be5e6a6fb46fae69d79ae56685776499adb5bef36e8ef37595f256721ad6db",
+    "0004-invalid-owner-and-regressions.patch": "465a10e17997edb66c4e2df9fab1cff1ac15e709cb56bbc54c294766c8d5be2b"
+  },
+  "latency-r2Tobaseline-fixed": [
+    {
+      "file": "src/infra/state-migrations.orphan-keys.test.ts",
+      "before": "2f5fbdba6a0544b4fdb8cdffbf09c53b80698f5656f7c6585673eb4f826c12d9",
+      "after": "fafdfbf10732f59320751a3e019e92c879bc72bc1ecd2e500ab4413daf471ef0"
+    },
+    {
+      "file": "src/infra/state-migrations.ts",
+      "before": "597391da9f75ff7e4c44a6bdfe5118834005a2816c8aca57c329d8053b89661f",
+      "after": "7513e8e26ac6161fc4e640cea2fb8bd4226bd09eb5b70f2e59e5103fc4ea9474"
+    }
+  ],
+  "baseline-fixedTocandidate-fixed": [
+    {
+      "file": "src/agents/subagent-registry-read.ts",
+      "before": "1c92c173f1d8c8f537de7b14f18056d9f8d0bcdd08f287cdbdbba06c852e722c",
+      "after": "543e076960dc9efbbc96c90f2892b133a9b74ebfa96a1b9050d245080e8c6da9"
+    },
+    {
+      "file": "src/gateway/session-utils.ts",
+      "before": "75a2bbf7ed36df4c8acf759aa4c86937e25170d4a300900e85033a82d5603430",
+      "after": "faea35204dbd9d4fd403fec2cf7384321feb89356205e1abb00deb03e38c1a13"
+    }
+  ],
+  "followup": {
+    "normalizationR2": {
+      "patch": "0005-corrected-normalization-r2.patch",
+      "sha256": "4593b98d1675b63e418c561953f78c0e81e87541b1bb7e99770ae2980f9a39eb",
+      "ordering": "base -> 0001 -> 0002 -> 0005 = corrected baseline; then 0003 = corrected candidate; NEVER 0004 in this series",
+      "functions": [
+        "canonicalizeSessionKey: normalize/validate owner before trim and blank return",
+        "invalid owner preservation regression suite: blank collision and repeated passes"
+      ]
+    },
+    "historyCap": {
+      "patch": "0006-history-cap-source-equivalent.patch",
+      "sha256": "9e0b81777cd1b6afda4f6600b7a82ca1e98614727ebed84c0b578e8c6d4d9f76",
+      "ordering": "source equivalent only after corrected candidate; not used to build emitted derivative",
+      "function": "ChatHistoryParamsSchema.maxChars.maximum 500000 -> 1000000"
+    }
+  }
+}
