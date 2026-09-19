@@ -1,5 +1,5 @@
 {
-  "status": "isolated-qualified-not-live-accepted",
+  "status": "rejected-no-go-not-deployable-not-safe-fallback",
   "deployment": null,
   "acceptance": null,
   "variants": {
@@ -9,7 +9,11 @@
       "originalRuntimeManifestSHA256": "e2f5f7cdd6f2a4af285e5908aab01a69df05df4c95bfdc7048605f90dddfd756",
       "originalDerivativeManifestSHA256": "3c667ced7c7ef042db919c5614005a2db64ec399a8ec788d97cf4902d8abc2ea",
       "immutableDeployedRoot": null,
-      "executingIdentity": null
+      "executingIdentity": null,
+      "status": "rejected",
+      "deployable": false,
+      "safeFallback": false,
+      "reviewDate": "2026-09-19"
     },
     "candidate": {
       "archive": "gateway-candidate-fixed.tar.gz",
@@ -17,7 +21,40 @@
       "originalRuntimeManifestSHA256": "27f82e3d505baed4082c2083eb1f33d70bae011f99497ac07685c4cab7c6e0f0",
       "originalDerivativeManifestSHA256": "57800b330725b48ba8ce3c68dc2432550f20a8f6286eea5007f2e2dce75cab48",
       "immutableDeployedRoot": null,
-      "executingIdentity": null
+      "executingIdentity": null,
+      "status": "rejected",
+      "deployable": false,
+      "safeFallback": false,
+      "reviewDate": "2026-09-19"
     }
+  },
+  "previousStatus": "isolated-qualified-not-live-accepted",
+  "reviewDisposition": {
+    "date": "2026-09-19",
+    "verdict": "NO-GO",
+    "supersedesPublicationCommit": "66841fc94fab8555e530bed5480601165e89a644",
+    "reason": "Actual emitted invalid-owner whitespace-only keys collapse to empty string before guard; synthetic collision merges and discards one row in both packages.",
+    "liveLossEstablished": false,
+    "deploymentOccurred": false,
+    "historicalEvidence": "Successful bounded tests and exact patches/manifests retained; blank-only collision coverage was missing."
+  },
+  "normalizationR2": {
+    "status": "pending-correction-and-independent-qualification",
+    "baseline": {
+      "archiveSHA256": null,
+      "runtimeManifestSHA256": null,
+      "derivativeManifestSHA256": null
+    },
+    "candidate": {
+      "archiveSHA256": null,
+      "runtimeManifestSHA256": null,
+      "derivativeManifestSHA256": null
+    },
+    "publication": "Pending new evidence and separately reviewed patch publication; inherited latency-R2 is a different layer."
+  },
+  "initialTransitionFailureProtocol": {
+    "beforeStoppedBoundary": "Abort leaving still-running old service alone.",
+    "afterStoppedBoundary": "Start only newly corrected independently reviewed and qualified code with matching verified peers; never old unpatched code or either rejected package.",
+    "correctedBaselineUnavailable": "Remain stopped and report; preserve current/newer state; no whole-state restore or key rewriting."
   }
 }
