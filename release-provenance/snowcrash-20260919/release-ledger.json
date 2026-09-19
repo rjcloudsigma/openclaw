@@ -1,0 +1,23 @@
+{
+  "status": "isolated-qualified-not-live-accepted",
+  "deployment": null,
+  "acceptance": null,
+  "variants": {
+    "baseline": {
+      "archive": "gateway-baseline-fixed.tar.gz",
+      "archiveSHA256": "d9acdd61fc7fa4d922ca1d01feb2c9cd7d4f01ee706435ccdc14fce9376eed44",
+      "originalRuntimeManifestSHA256": "e2f5f7cdd6f2a4af285e5908aab01a69df05df4c95bfdc7048605f90dddfd756",
+      "originalDerivativeManifestSHA256": "3c667ced7c7ef042db919c5614005a2db64ec399a8ec788d97cf4902d8abc2ea",
+      "immutableDeployedRoot": null,
+      "executingIdentity": null
+    },
+    "candidate": {
+      "archive": "gateway-candidate-fixed.tar.gz",
+      "archiveSHA256": "51b9f532b303dc318519cd96ed2a9676723dcefe850f41006c27361ebd532c25",
+      "originalRuntimeManifestSHA256": "27f82e3d505baed4082c2083eb1f33d70bae011f99497ac07685c4cab7c6e0f0",
+      "originalDerivativeManifestSHA256": "57800b330725b48ba8ce3c68dc2432550f20a8f6286eea5007f2e2dce75cab48",
+      "immutableDeployedRoot": null,
+      "executingIdentity": null
+    }
+  }
+}

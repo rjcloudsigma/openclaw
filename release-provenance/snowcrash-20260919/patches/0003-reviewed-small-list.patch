@@ -1,0 +1,112 @@
+--- a/src/gateway/session-utils.ts
++++ b/src/gateway/session-utils.ts
+@@ -755,7 +755,7 @@
+ 
+ function buildSessionListRowMetadataContext(params: { now: number }): SessionListRowContext {
+   return buildSessionListRowContextFromParts({
+-    subagentRuns: buildSubagentRunReadIndex(params.now),
++    subagentRuns: buildSubagentRunReadIndex(params.now, { includeExactChildView: true }),
+     storeChildSessionsByKey: new Map(),
+   });
+ }
+@@ -3023,6 +3023,8 @@
+     fullRowContext ??
+     (entries.length > 0 ? buildSessionListRowMetadataContext({ now }) : undefined);
+ 
++  const singleRowSubagentRuns = sharedRowContext?.subagentRuns.exactChildView;
++
+   const sessions = entries.map(([key, entry], index) => {
+     const includeTranscriptFields = index < sessionListTranscriptFieldRows;
+     const rowAgentId =
+@@ -3031,7 +3033,13 @@
+         : undefined;
+     const storeChildSessionsByKey =
+       fullRowContext?.storeChildSessionsByKey ??
+-      buildSingleRowStoreChildSessionsByKey({ store, storePath, key, now });
++      buildSingleRowStoreChildSessionsByKey({
++        store,
++        storePath,
++        key,
++        now,
++        subagentRuns: singleRowSubagentRuns,
++      });
+     return buildGatewaySessionRow({
+       cfg,
+       storePath,
+@@ -3121,6 +3129,8 @@
+       fullRowContext ??
+       (entries.length > 0 ? buildSessionListRowMetadataContext({ now }) : undefined);
+ 
++    let singleRowSubagentRuns = sharedRowContext?.subagentRuns.exactChildView;
++
+     const sessions: GatewaySessionRow[] = [];
+     for (let i = 0; i < entries.length; i++) {
+       const [key, entry] = entries[i];
+@@ -3129,9 +3139,20 @@
+         key === "global" && typeof opts.agentId === "string"
+           ? normalizeAgentId(opts.agentId)
+           : undefined;
++      // Transcript reads can yield to controller transfers or registry writes.
++      // Reacquire only after a yield, not once per child candidate.
++      if (!fullRowContext && !singleRowSubagentRuns) {
++        singleRowSubagentRuns = buildSubagentRunReadIndex(now, { childKeyMatching: "exact" });
++      }
+       const storeChildSessionsByKey =
+         fullRowContext?.storeChildSessionsByKey ??
+-        buildSingleRowStoreChildSessionsByKey({ store, storePath, key, now });
++        buildSingleRowStoreChildSessionsByKey({
++          store,
++          storePath,
++          key,
++          now,
++          subagentRuns: singleRowSubagentRuns,
++        });
+       const row = buildGatewaySessionRow({
+         cfg,
+         storePath,
+@@ -3165,6 +3186,7 @@
+           sessionKey: key,
+           storePath,
+         });
++        singleRowSubagentRuns = undefined;
+         if (includeDerivedTitles) {
+           row.derivedTitle = deriveSessionTitle(entry, fields.firstUserMessage);
+         }
+--- a/src/agents/subagent-registry-read.ts
++++ b/src/agents/subagent-registry-read.ts
+@@ -26,14 +26,30 @@
+ /** Builds a reusable read index from the current persisted and in-memory run state. */
+ export function buildSubagentRunReadIndex(
+   now = Date.now(),
+-  options?: { childKeyMatching?: "trimmed" | "exact" },
+-): SubagentRunReadIndex {
+-  return buildSubagentRunReadIndexFromRuns({
+-    runs: getSubagentRunsSnapshotForRead(subagentRuns),
+-    inMemoryRuns: subagentRuns.values(),
++  options?: { childKeyMatching?: "trimmed" | "exact"; includeExactChildView?: boolean },
++): SubagentRunReadIndex & { exactChildView?: SubagentRunReadIndex } {
++  // Both views share one response-local read. Never retain this across requests.
++  const runs = getSubagentRunsSnapshotForRead(subagentRuns);
++  const inMemoryRuns = options?.includeExactChildView
++    ? [...subagentRuns.values()]
++    : subagentRuns.values();
++  const index = buildSubagentRunReadIndexFromRuns({
++    runs,
++    inMemoryRuns,
+     childKeyMatching: options?.childKeyMatching,
+     now,
+   });
++  return options?.includeExactChildView
++    ? {
++        ...index,
++        exactChildView: buildSubagentRunReadIndexFromRuns({
++          runs,
++          inMemoryRuns,
++          childKeyMatching: "exact",
++          now,
++        }),
++      }
++    : index;
+ }
+ 
+ /** Lists runs controlled by a session key. */
