@@ -160,5 +160,22 @@
       "before": "75a2bbf7ed36df4c8acf759aa4c86937e25170d4a300900e85033a82d5603430",
       "after": "faea35204dbd9d4fd403fec2cf7384321feb89356205e1abb00deb03e38c1a13"
     }
-  ]
+  ],
+  "followup": {
+    "normalizationR2": {
+      "patch": "0005-corrected-normalization-r2.patch",
+      "sha256": "4593b98d1675b63e418c561953f78c0e81e87541b1bb7e99770ae2980f9a39eb",
+      "ordering": "base -> 0001 -> 0002 -> 0005 = corrected baseline; then 0003 = corrected candidate; NEVER 0004 in this series",
+      "functions": [
+        "canonicalizeSessionKey: normalize/validate owner before trim and blank return",
+        "invalid owner preservation regression suite: blank collision and repeated passes"
+      ]
+    },
+    "historyCap": {
+      "patch": "0006-history-cap-source-equivalent.patch",
+      "sha256": "9e0b81777cd1b6afda4f6600b7a82ca1e98614727ebed84c0b578e8c6d4d9f76",
+      "ordering": "source equivalent only after corrected candidate; not used to build emitted derivative",
+      "function": "ChatHistoryParamsSchema.maxChars.maximum 500000 -> 1000000"
+    }
+  }
 }

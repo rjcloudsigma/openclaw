@@ -1,0 +1,12 @@
+{
+  "parent": "manifests/small-list.json",
+  "parentPublishedSHA256": "a3ef812ff2fd830306a944e74209c7e3a77b23c608b09c58ea074b5b77cbcfa1",
+  "originalDerivativeManifestSHA256": "bc0c5e20be5aba813051b5e946f08bd9859e1696dc50902702ccee0fc468728e",
+  "replaceFiles": {
+    "src/infra/state-migrations.orphan-keys.test.ts": "52f05832150d4327d286f2d51534747fa022d3c4c081bee058e164f665096670",
+    "src/infra/state-migrations.ts": "767460f2a94ec909f6f778a80dbe366142017cd2f5801c6dd7e25f80b9b10b84"
+  },
+  "membershipAndSymlinksUnchanged": true,
+  "sourceFiles": 22120,
+  "sourceLinks": 23
+}

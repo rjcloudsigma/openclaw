@@ -1,0 +1,14 @@
+{
+  "sourceReconstruction": "PASS: actual full tree base -> 0001 -> 0002 -> 0005, then 0003; each 22120 files and 23 links",
+  "historySourcePatch": "PASS: exact before/after SHA256; applied 0006 to reconstructed corrected candidate",
+  "manifestExpansion": "PASS: exact complete source file/mode/link and runtime maps; history full tree maps match collected receipts with only resolved root sanitization",
+  "offlineEmittedHistory": "PASS: real emitted validator, actual installed TUI request construction and resolver; no gateway/provider traffic",
+  "offlineSourceHistory": "PASS: actual reconstructed source expression with runtime typebox; first attempt wrong legacy @sinclair/typebox import failed, corrected to actual source dependency typebox and reran successfully",
+  "historicalBuilds": "Attributed successful receipts, NOT rerun",
+  "publicBaseCustody": "BLOCKED: base commit unavailable on GitHub; no unreviewed ancestry publication",
+  "broadBuildsAndTests": "SKIPPED intentionally for provenance-only branch; no runtime modifications",
+  "latency": "Historical bounded live samples only; no new latency traffic",
+  "formatAndScan": "PASS targeted Oxfmt, JSON, credential/private-host scan, non-patch diff checks; historical patch bytes unchanged",
+  "ci": "Inspect GitHub checks after push; no bypass",
+  "lint": "Initial missing tsgolint then three implied-eval findings; corrected harness and rerun with complete transient lint toolchain, no suppression"
+}

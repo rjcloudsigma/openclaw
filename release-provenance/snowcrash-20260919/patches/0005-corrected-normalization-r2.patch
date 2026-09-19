@@ -1,0 +1,131 @@
+--- a/src/infra/state-migrations.ts
++++ b/src/infra/state-migrations.ts
+@@ -3140,13 +3140,17 @@
+   preserveAmbiguousKeys?: boolean;
+   preserveForeignMainAliases?: boolean;
+ }): string {
++  const configuredAgentId = normalizeAgentId(params.agentId);
++  // Invalid legacy owners must preserve every exact key, including blank keys.
++  if (!isValidAgentId(configuredAgentId)) {
++    return params.key;
++  }
+   const raw = params.key.trim();
+   if (!raw) {
+     return raw;
+   }
+   const rawLower = normalizeLowercaseStringOrEmpty(raw);
+   const legacyDefaultMainAlias = isLegacyDefaultMainAliasKey(rawLower, params.mainKey);
+-  const configuredAgentId = normalizeAgentId(params.agentId);
+   const canonicalRowOwner = resolveCanonicalAgentSessionOwner(raw);
+   // Shared stores may contain rows for several agents. Canonicalize a valid
+   // wrapper within its declared owner so another agent pass cannot adopt it.
+--- a/src/infra/state-migrations.orphan-keys.test.ts
++++ b/src/infra/state-migrations.orphan-keys.test.ts
+@@ -1020,3 +1020,107 @@
+     });
+   });
+ });
++
++// Regression: invalid legacy owners must be fixed points, never key surgery.
++describe("invalid owner preservation", () => {
++  beforeEach(() => listPluginDoctorSessionStoreAgentIdsMock.mockReturnValue([]));
++
++  it.each(["__nonexistent__", "_legacy", "_" + "x".repeat(90)])(
++    "preserves all bytes, rows and histories for retired owner %s repeatedly",
++    async (inputOwner) => {
++      await withStateFixture(async ({ stateDir }) => {
++        const owner = inputOwner.slice(0, 64);
++        const storePath = path.join(stateDir, "agents", owner, "sessions", "sessions.json");
++        const keys = [...["", " ", "\t", "\n", "\r\n", "  ", "\u00a0", "\u2003", "\u2028", "\u2029", "\u3000", " \t\u00a0 "], "main", " global ", "unknown", " AGENT:_legacy:Room ",
++          "agent:__nonexistent__:".repeat(1022) + "main", "agent:ops:telegram:direct:AbCdEf"];
++        const store = Object.fromEntries(keys.map((key, index) => [key, {
++          sessionId: `invalid-preserve-${index}`, updatedAt: 1000 + index,
++        }]));
++        writeStore(storePath, store);
++        const original = fs.readFileSync(storePath);
++        const history = path.join(path.dirname(storePath), "invalid-preserve-0.jsonl");
++        fs.writeFileSync(history, '{"type":"synthetic","message":"preserve history"}\n');
++        const historyBytes = fs.readFileSync(history);
++        for (let pass = 0; pass < 4; pass++) {
++          await migrateFixtureState(stateDir, OPS_WORK_CONFIG);
++          expect(fs.readFileSync(storePath)).toEqual(original);
++          expect(readStore(storePath)).toEqual(store);
++          expect(fs.readFileSync(history)).toEqual(historyBytes);
++        }
++      });
++    },
++  );
++
++  it.each(["plugin", "custom", "shared", "symlink", "hardlink"])(
++    "preserves invalid owner keys without merging in %s stores",
++    async (kind) => {
++      await withStateFixture(async ({ tmpDir, stateDir }) => {
++        const owner = "_legacy";
++        const invalidPath = path.join(stateDir, "agents", owner, "sessions", "sessions.json");
++        const customPath = path.join(tmpDir, "custom", owner, "sessions.json");
++        const storePath = kind === "custom" || kind === "shared" ? customPath : invalidPath;
++        const store = {
++          ...Object.fromEntries((kind === "shared" ? [] : ["", " ", "\t", "\n", "\r\n", "  ", "\u00a0", "\u2003", "\u2028", "\u2029", "\u3000", " \t\u00a0 "]).map((key, i) => [key, {sessionId: `blank-${i}`, updatedAt: 100 - i}])),
++          main: { sessionId: "raw", updatedAt: 1 },
++          "agent:_legacy:main": { sessionId: "wrapped", updatedAt: 2 },
++          "agent:_legacy:agent:_legacy:main": { sessionId: "twice", updatedAt: 3 },
++          "agent:ops:work": { sessionId: "valid", updatedAt: 4 },
++        };
++        writeStore(storePath, store);
++        const original = fs.readFileSync(storePath);
++        const cfg: OpenClawConfig = kind === "custom" ? {
++          ...OPS_WORK_CONFIG, session: { mainKey: "work", store: path.join(tmpDir, "custom", "{agentId}", "sessions.json") },
++        } : kind === "shared" ? sharedMainOpsConfig(storePath) : OPS_WORK_CONFIG;
++        let alias: string | undefined;
++        if (kind === "symlink" || kind === "hardlink") {
++          alias = opsSessionStorePath(stateDir);
++          fs.mkdirSync(path.dirname(alias), { recursive: true });
++          if (kind === "symlink") fs.symlinkSync(storePath, alias);
++          else fs.linkSync(storePath, alias);
++        }
++        if (kind === "plugin") listPluginDoctorSessionStoreAgentIdsMock.mockReturnValue([owner]);
++        for (let pass = 0; pass < 4; pass++) {
++          await migrateFixtureState(stateDir, cfg, kind === "plugin" ? undefined : [owner]);
++          expect(fs.readFileSync(storePath)).toEqual(original);
++          expect(readStore(storePath)).toEqual(store);
++          if (alias) expect(fs.readFileSync(alias)).toEqual(original);
++        }
++      });
++    },
++  );
++
++  it("keeps valid normalization, main/global and opaque peer behavior", async () => {
++    await withStateFixture(async ({ stateDir }) => {
++      const owner = "a".repeat(64);
++      const storePath = path.join(stateDir, "agents", owner, "sessions", "sessions.json");
++      const store = { main: { sessionId: "main", updatedAt: 1 }, global: { sessionId: "global", updatedAt: 2 },
++        [`agent:${owner}:telegram:direct:AbCdEf`]: { sessionId: "peer", updatedAt: 3 } };
++      writeStore(storePath, store);
++      const cfg: OpenClawConfig = { agents: { list: [{ id: "A".repeat(90), default: true }] }, session: { mainKey: "work" } };
++      await migrateFixtureState(stateDir, cfg);
++      const first = readStore(storePath);
++      expect(Object.keys(first)).toContain(`agent:${owner}:work`);
++      expect(Object.values(first)).toEqual(Object.values(store));
++      const bytes = fs.readFileSync(storePath);
++      for (let pass = 0; pass < 3; pass++) {
++        await migrateFixtureState(stateDir, cfg);
++        expect(fs.readFileSync(storePath)).toEqual(bytes);
++      }
++    });
++  });
++});
++
++describe("blank collision insertion and timestamp permutations", () => {
++ beforeEach(() => listPluginDoctorSessionStoreAgentIdsMock.mockReturnValue([]));
++ it.each(Array.from({length: 24}, (_, i) => i))("retains all exact rows order %s", async (order) => {
++  await withStateFixture(async ({stateDir}) => {
++   const blanks = ["", " ", "\t", "\n", "\r\n", "  ", "\u00a0", "\u2003", "\u2028", "\u2029", "\u3000", " \t\u00a0 "];
++   const offset = order % blanks.length;
++   const keys = [...blanks.slice(offset), ...blanks.slice(0, offset)];
++   const store = Object.fromEntries(keys.map((key, i) => [key, {sessionId: `blank-${i}`, updatedAt: order < 12 ? i : 100-i}]));
++   const p = path.join(stateDir, "agents", "_legacy", "sessions", "sessions.json");
++   writeStore(p, store);const bytes=fs.readFileSync(p);
++   for(let pass=0;pass<4;pass++){await migrateFixtureState(stateDir, OPS_WORK_CONFIG);expect(fs.readFileSync(p)).toEqual(bytes);expect(readStore(p)).toEqual(store);expect(Object.keys(readStore(p))).toHaveLength(12);}
++  });
++ });
++});

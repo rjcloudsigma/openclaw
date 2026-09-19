@@ -1,0 +1,5 @@
+{
+  "modeAndLinkReference": "followup/baseline-source-modes.json",
+  "originalManifestSHA256": "5f49899a3fba4ce531ead75b0a85b8d6ad18fb65ce4124e9cd8b62a4d548877c",
+  "contentReference": "followup/candidate-source-delta.json"
+}

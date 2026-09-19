@@ -1,0 +1,12 @@
+{
+  "parent": "manifests/latency-r2.json",
+  "parentPublishedSHA256": "28fc96443aa9bfb37a1bc95a0c6d8f6ee0fd46c2afcc4b4677615c2d55f5e4ec",
+  "originalDerivativeManifestSHA256": "fdad043e61fdb3671ad2d98c3b583a1fa1228808e87c0f3264ea966854cbbe03",
+  "replaceFiles": {
+    "src/infra/state-migrations.orphan-keys.test.ts": "52f05832150d4327d286f2d51534747fa022d3c4c081bee058e164f665096670",
+    "src/infra/state-migrations.ts": "767460f2a94ec909f6f778a80dbe366142017cd2f5801c6dd7e25f80b9b10b84"
+  },
+  "membershipAndSymlinksUnchanged": true,
+  "sourceFiles": 22120,
+  "sourceLinks": 23
+}

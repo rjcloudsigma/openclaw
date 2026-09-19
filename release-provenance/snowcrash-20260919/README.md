@@ -1,3 +1,7 @@
+# Current disposition: corrected R2 accepted; history 1m staged only
+
+See [the follow-up record](followup/README.md) and the current `release-ledger.json`. The sections below are retained historical publication/rejection evidence; pending R2/live fields below are superseded by the follow-up, not current blockers. Old rejected package identities remain rejected. Public source-base custody is still incomplete.
+
 # Snowcrash Gateway source custody: REJECTED packages, 2026-09-19
 
 ## Independent review disposition: NO-GO (2026-09-19)
